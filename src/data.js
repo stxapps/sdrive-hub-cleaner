@@ -105,14 +105,14 @@ const deleteFileInfos = async (infos) => {
   await deleteData(keys, 200);
 };
 
-const getObsoleteFileLogs = async () => {
+const getObsoleteFileLogs = async (nLimit) => {
   const dt = Date.now() - (31 * 24 * 60 * 60 * 1000);
   const date = new Date(dt);
 
   const query = datastore.createQuery(FILE_LOG);
   query.filter(new PropertyFilter('createDate', '<', date));
   query.order('createDate', { descending: false });
-  query.limit(10240);
+  query.limit(nLimit);
 
   const entities = await queryData(query, true);
 
@@ -133,7 +133,7 @@ const deleteFileLogs = async (logs) => {
     keys.push(datastore.key([FILE_LOG, log.name]));
   }
 
-  await deleteData(keys, 1024);
+  await deleteData(keys, 2048);
 };
 
 const getObsoleteFileWorkLogs = async () => {

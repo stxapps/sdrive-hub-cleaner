@@ -41,12 +41,17 @@ const cleanFileLog = async () => {
   console.log(`(${logKey}) clean starts on ${startDate.toISOString()}`);
   console.log(`(${logKey}) doDryRun: ${doDryRun}`);
 
-  const logs = await dataApi.getObsoleteFileLogs();
-  sampleConsoleLog(logs);
-  console.log(`(${logKey}) Got ${logs.length} entities`);
-  if (logs.length > 0) {
-    if (!doDryRun) await dataApi.deleteFileLogs(logs);
-    console.log(`(${logKey}) Deleted the entities`);
+  const nLimit = 20480;
+  for (let i = 0; i < 10; i++) {
+    const logs = await dataApi.getObsoleteFileLogs(nLimit);
+    sampleConsoleLog(logs);
+    console.log(`(${logKey}) Got ${logs.length} entities`);
+    if (logs.length > 0) {
+      if (!doDryRun) await dataApi.deleteFileLogs(logs);
+      console.log(`(${logKey}) Deleted the entities`);
+    }
+
+    if (logs.length < nLimit) break;
   }
 };
 
