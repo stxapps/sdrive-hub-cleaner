@@ -112,7 +112,7 @@ const getObsoleteFileLogs = async () => {
   const query = datastore.createQuery(FILE_LOG);
   query.filter(new PropertyFilter('createDate', '<', date));
   query.order('createDate', { descending: false });
-  query.limit(20480);
+  query.limit(10240);
 
   const entities = await queryData(query, true);
 
