@@ -8,10 +8,10 @@
   "type": "module",
   "scripts": {
     "start": "node --import=specifier-resolution-node/register src/index.js",
-    "cleanDeletedSDriveHub-local": "GOOGLE_APPLICATION_CREDENTIALS=~/.config/gcloud/legacy_credentials/brace@brace.to/sdrive-001-adeb2f2dcdc2.json CLEAN_NAME=cleanDeletedSDriveHub DRY_RUN=true node --import=specifier-resolution-node/register src/index.js",
-    "cleanSDriveHub-local": "GOOGLE_APPLICATION_CREDENTIALS=~/.config/gcloud/legacy_credentials/brace@brace.to/sdrive-001-adeb2f2dcdc2.json CLEAN_NAME=cleanSDriveHub DRY_RUN=true node --import=specifier-resolution-node/register src/index.js",
-    "cleanFileLog-local": "GOOGLE_APPLICATION_CREDENTIALS=~/.config/gcloud/legacy_credentials/brace@brace.to/sdrive-001-adeb2f2dcdc2.json CLEAN_NAME=cleanFileLog DRY_RUN=true node --import=specifier-resolution-node/register src/index.js",
-    "cleanFileWorkLog-local": "GOOGLE_APPLICATION_CREDENTIALS=~/.config/gcloud/legacy_credentials/brace@brace.to/sdrive-001-adeb2f2dcdc2.json CLEAN_NAME=cleanFileWorkLog DRY_RUN=true node --import=specifier-resolution-node/register src/index.js",
+    "cleanDeletedSDriveHub": "GOOGLE_APPLICATION_CREDENTIALS=~/.config/gcloud/legacy_credentials/brace@brace.to/sdrive-001-adeb2f2dcdc2.json CLEAN_NAME=cleanDeletedSDriveHub DRY_RUN=true node --import=specifier-resolution-node/register src/index.js",
+    "cleanSDriveHub": "GOOGLE_APPLICATION_CREDENTIALS=~/.config/gcloud/legacy_credentials/brace@brace.to/sdrive-001-adeb2f2dcdc2.json CLEAN_NAME=cleanSDriveHub DRY_RUN=true node --import=specifier-resolution-node/register src/index.js",
+    "cleanFileLog": "GOOGLE_APPLICATION_CREDENTIALS=~/.config/gcloud/legacy_credentials/brace@brace.to/sdrive-001-adeb2f2dcdc2.json CLEAN_NAME=cleanFileLog DRY_RUN=true node --import=specifier-resolution-node/register src/index.js",
+    "cleanFileWorkLog": "GOOGLE_APPLICATION_CREDENTIALS=~/.config/gcloud/legacy_credentials/brace@brace.to/sdrive-001-adeb2f2dcdc2.json CLEAN_NAME=cleanFileWorkLog DRY_RUN=true node --import=specifier-resolution-node/register src/index.js",
     "deploy": "gcloud run jobs deploy sdrive-hub-cleaner --source . --cpu=1 --memory=512Mi --tasks=1 --max-retries=0 --task-timeout=20m --region=us-central1 --project=sdrive-001"
   },
   "dependencies": {

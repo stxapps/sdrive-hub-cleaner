@@ -14,15 +14,20 @@ const cleanDeletedSDriveHub = async () => {
   console.log(`(${logKey}) clean starts on ${startDate.toISOString()}`);
   console.log(`(${logKey}) doDryRun: ${doDryRun}`);
 
-  const infos = await dataApi.getDeletedFileInfos();
-  sampleConsoleLog(infos)
-  console.log(`(${logKey}) Got ${infos.length} entities`);
-  if (infos.length > 0) {
-    if (!doDryRun) await dataApi.deleteSDriveHubBackUp(infos);
-    console.log(`(${logKey}) Deleted in the backup bucket`);
+  const nLimit = 2400;
+  for (let i = 0; i < 10; i++) {
+    const infos = await dataApi.getDeletedFileInfos(nLimit);
+    sampleConsoleLog(infos)
+    console.log(`(${logKey}) Got ${infos.length} entities`);
+    if (infos.length > 0) {
+      if (!doDryRun) await dataApi.deleteSDriveHubBackUp(infos);
+      console.log(`(${logKey}) Deleted in the backup bucket`);
 
-    if (!doDryRun) await dataApi.deleteFileInfos(infos);
-    console.log(`(${logKey}) Deleted the entities`);
+      if (!doDryRun) await dataApi.deleteFileInfos(infos);
+      console.log(`(${logKey}) Deleted the entities`);
+    }
+
+    if (infos.length < nLimit) break;
   }
 };
 
@@ -61,12 +66,17 @@ const cleanFileWorkLog = async () => {
   console.log(`(${logKey}) clean starts on ${startDate.toISOString()}`);
   console.log(`(${logKey}) doDryRun: ${doDryRun}`);
 
-  const logs = await dataApi.getObsoleteFileWorkLogs();
-  sampleConsoleLog(logs);
-  console.log(`(${logKey}) Got ${logs.length} entities`);
-  if (logs.length > 0) {
-    if (!doDryRun) await dataApi.deleteFileWorkLogs(logs);
-    console.log(`(${logKey}) Deleted the entities`);
+  const nLimit = 752;
+  for (let i = 0; i < 10; i++) {
+    const logs = await dataApi.getObsoleteFileWorkLogs(nLimit);
+    sampleConsoleLog(logs);
+    console.log(`(${logKey}) Got ${logs.length} entities`);
+    if (logs.length > 0) {
+      if (!doDryRun) await dataApi.deleteFileWorkLogs(logs);
+      console.log(`(${logKey}) Deleted the entities`);
+    }
+
+    if (logs.length < nLimit) break;
   }
 };
 

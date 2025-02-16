@@ -51,7 +51,7 @@ const deleteFiles = async (bucketName, paths, nItems = 32) => {
   }
 };
 
-const getDeletedFileInfos = async () => {
+const getDeletedFileInfos = async (nLimit) => {
   const dt = Date.now() - (31 * 24 * 60 * 60 * 1000);
   const date = new Date(dt);
 
@@ -61,7 +61,7 @@ const getDeletedFileInfos = async () => {
     new PropertyFilter('updateDate', '<', date),
   ])); // Need Composite Index Configuration in index.yaml in sdrive-hub
   query.order('updateDate', { descending: false });
-  query.limit(2400);
+  query.limit(nLimit);
 
   const entities = await queryData(query, true);
 
@@ -89,7 +89,7 @@ const deleteSDriveHubBackUp = async (infos) => {
     paths.push(info.path);
   }
 
-  await deleteFiles(BACKUP_BUCKET, paths, 80);
+  await deleteFiles(BACKUP_BUCKET, paths, 240);
 };
 
 /*const deleteBucketInfos = async () => {
@@ -102,7 +102,7 @@ const deleteFileInfos = async (infos) => {
     keys.push(datastore.key([FILE_INFO, info.path]));
   }
 
-  await deleteData(keys, 200);
+  await deleteData(keys, 240);
 };
 
 const getObsoleteFileLogs = async (nLimit) => {
@@ -136,14 +136,14 @@ const deleteFileLogs = async (logs) => {
   await deleteData(keys, 2048);
 };
 
-const getObsoleteFileWorkLogs = async () => {
+const getObsoleteFileWorkLogs = async (nLimit) => {
   const dt = Date.now() - (31 * 24 * 60 * 60 * 1000);
   const date = new Date(dt);
 
   const query = datastore.createQuery(FILE_WORK_LOG);
   query.filter(new PropertyFilter('createDate', '<', date));
   query.order('createDate', { descending: false });
-  query.limit(752);
+  query.limit(nLimit);
 
   const entities = await queryData(query, true);
 
