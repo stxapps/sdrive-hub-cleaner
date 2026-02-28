@@ -3,7 +3,7 @@
   "version": "0.3.0",
   "private": true,
   "engines": {
-    "node": "20.x.x"
+    "node": "24.x.x"
   },
   "type": "module",
   "scripts": {
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@google-cloud/datastore": "^9.2.1",
-    "@google-cloud/storage": "^7.14.0",
+    "@google-cloud/storage": "^7.19.0",
     "specifier-resolution-node": "^1.1.4"
   }
 }
